@@ -72,7 +72,6 @@ Follow these instructions to get a copy of the project up and running on your lo
 4.  Click the **"Run" or "Get Info" button** relevant to the tool.
 5.  The results will be displayed in the designated **results area** below the input fields, complete with detailed information and a clean design.
 
-## 📁 Project Structure
 ## 📝 License
 
 This project is open source and available under the MIT License. Feel free to modify and distribute.
