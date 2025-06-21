@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bioinformatics Tools</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+         .tool-content {
+            display: none; /* Initially hide all tool content */
+        }
+        .tool-content.active {
+            display: block; /* Show the active tool content */
+        }
+
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-semibold text-blue-700 mb-6">Bioinformatics Tools</h1>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="md:col-span-1">
+                <div class="bg-white rounded-lg shadow-md p-4 space-y-2">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Tools</h2>
+                    <ul class="space-y-1" id="tool-list">
+                        <li><a href="#blast-tool" data-tool="blast-tool" class="block px-4 py-2 rounded-md hover:bg-gray-200 text-gray-700">BLAST</a></li>
+                        <li><a href="#kegg-tool" data-tool="kegg-tool" class="block px-4 py-2 rounded-md hover:bg-gray-200 text-gray-700">KEGG</a></li>
+                        <li><a href="#primer-design-tool" data-tool="primer-design-tool" class="block px-4 py-2 rounded-md hover:bg-gray-200 text-gray-700">Primer Design</a></li>
+                        <li><a href="#transcription-tool" data-tool="transcription-tool" class="block px-4 py-2 rounded-md hover:bg-gray-200 text-gray-700">Transcription Tool</a></li>
+                        <li><a href="#translation-tool" data-tool="translation-tool" class="block px-4 py-2 rounded-md hover:bg-gray-200 text-gray-700">Translation Tool</a></li>
+                        <li><a href="#complementary-tool" data-tool="complementary-tool" class="block px-4 py-2 rounded-md hover:bg-gray-200 text-gray-700">Complementary Tool</a></li>
+                        <li><a href="#uniprot-tool" data-tool="uniprot-tool" class="block px-4 py-2 rounded-md hover:bg-gray-200 text-gray-700">UniProt</a></li>
+                        <li><a href="#chembl-tool" data-tool="chembl-tool" class="block px-4 py-2 rounded-md hover:bg-gray-200 text-gray-700">CHEMBL</a></li>
+                         <li><a href="#med-interaction-tool" data-tool="med-interaction-tool" class="block px-4 py-2 rounded-md hover:bg-gray-200 text-gray-700">Medication Interaction</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="md:col-span-3 space-y-6" id="tool-content-area">
+                <div id="med-interaction-tool" class="bg-white rounded-lg shadow-md p-6 tool-content active">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Search Medications</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <input type="text" id="medication1" placeholder="Enter first medication" class="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <input type="text" id="medication2" placeholder="Enter second medication" class="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <button id="checkInteraction" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline">Check Interaction</button>
+                    <div id="results" class="mt-4 p-4 border border-gray-300 rounded-md bg-gray-50">
+                        <p class="text-gray-600">Enter medications above to check for interactions.</p>
+                    </div>
+                </div>
+                <div id="blast-tool" class="bg-white rounded-lg shadow-md p-6 tool-content">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">BLAST Tool</h2>
+                    <textarea id="blast-sequence" placeholder="Enter your sequence here..." class="border border-gray-300 rounded-md px-4 py-2 w-full h-32 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    <button onclick="runBlast()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline">Run BLAST</button>
+                    <div id="blast-results" class="mt-4 p-4 border border-gray-300 rounded-md bg-gray-50">
+                         <p class="text-gray-600">BLAST results will appear here.</p>
+                    </div>
+                </div>
+
+                <div id="kegg-tool" class="bg-white rounded-lg shadow-md p-6 tool-content">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">KEGG Tool</h2>
+                    <input type="text" id="kegg-id" placeholder="Enter KEGG ID (e.g., hsa00010)" class="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4">
+                    <button onclick="getKeggInfo()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline">Get KEGG Info</button>
+                    <div id="kegg-results" class="mt-4 p-4 border border-gray-300 rounded-md bg-gray-50">
+                         <p class="text-gray-600">KEGG information will appear here.</p>
+                    </div>
+                </div>
+
+                <div id="primer-design-tool" class="bg-white rounded-lg shadow-md p-6 tool-content">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Primer Design Tool</h2>
+                    <textarea id="primer-sequence" placeholder="Enter DNA sequence..." class="border border-gray-300 rounded-md px-4 py-2 w-full h-32 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"></textarea>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <input type="text" id="primer-target-region" placeholder="Target Region (e.g., 100-200)" class="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <input type="text" id="primer-tm" placeholder="Melting Temperature (e.g., 60)" class="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <button onclick="designPrimers()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline">Design Primers</button>
+                    <div id="primer-results" class="mt-4 p-4 border border-gray-300 rounded-md bg-gray-50">
+                         <p class="text-gray-600">Primer design results will appear here.</p>
+                    </div>
+                </div>
+
+                <div id="transcription-tool" class="bg-white rounded-lg shadow-md p-6 tool-content">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Transcription Tool</h2>
+                    <textarea id="transcription-dna" placeholder="Enter DNA sequence..." class="border border-gray-300 rounded-md px-4 py-2 w-full h-32 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"></textarea>
+                    <button onclick="transcribeSequence()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline">Transcribe</button>
+                    <div id="transcription-results" class="mt-4 p-4 border border-gray-300 rounded-md bg-gray-50">
+                         <p class="text-gray-600">RNA sequence will appear here.</p>
+                    </div>
+                </div>
+
+                <div id="translation-tool" class="bg-white rounded-lg shadow-md p-6 tool-content">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Translation Tool</h2>
+                    <textarea id="translation-rna" placeholder="Enter RNA sequence..." class="border border-gray-300 rounded-md px-4 py-2 w-full h-32 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"></textarea>
+                    <button onclick="translateSequence()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline">Translate</button>
+                    <div id="translation-results" class="mt-4 p-4 border border-gray-300 rounded-md bg-gray-50">
+                         <p class="text-gray-600">Protein sequence will appear here.</p>
+                    </div>
+                </div>
+
+                <div id="complementary-tool" class="bg-white rounded-lg shadow-md p-6 tool-content">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Complementary Tool</h2>
+                    <textarea id="complement-sequence" placeholder="Enter DNA sequence..." class="border border-gray-300 rounded-md px-4 py-2 w-full h-32 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"></textarea>
+                    <button onclick="getComplement()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline">Get Complement</button>
+                    <div id="complement-results" class="mt-4 p-4 border border-gray-300 rounded-md bg-gray-50">
+                         <p class="text-gray-600">Complementary sequence will appear here.</p>
+                    </div>
+                </div>
+
+                <div id="uniprot-tool" class="bg-white rounded-lg shadow-md p-6 tool-content">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">UniProt Tool</h2>
+                    <input type="text" id="uniprot-id" placeholder="Enter UniProt ID (e.g., P04637)" class="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4">
+                    <button onclick="getUniprotInfo()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline">Get UniProt Info</button>
+                    <div id="uniprot-results" class="mt-4 p-4 border border-gray-300 rounded-md bg-gray-50">
+                         <p class="text-gray-600">UniProt information will appear here.</p>
+                    </div>
+                </div>
+
+                <div id="chembl-tool" class="bg-white rounded-lg shadow-md p-6 tool-content">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">CHEMBL Tool</h2>
+                    <input type="text" id="chembl-id" placeholder="Enter CHEMBL ID (e.g., CHEMBL12)" class="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4">
+                    <button onclick="getChemblInfo()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline">Get CHEMBL Info</button>
+                    <div id="chembl-results" class="mt-4 p-4 border border-gray-300 rounded-md bg-gray-50">
+                         <p class="text-gray-600">CHEMBL information will appear here.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Database Information</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <h3 class="font-semibold text-gray-700 mb-2">Data Sources</h3>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li class="text-gray-600">DrugBank</li>
+                                <li class="text-gray-600">PharmGKB</li>
+                                <li class="text-gray-600">SIDER</li>
+                                 <li class="text-gray-600">ChEBI</li>
+                                <li class="text-gray-600">NDF-RT</li>
+                                <li class="text-gray-600">DrugCentral</li>
+                                 <li class="text-gray-600">MedDRA</li>
+                                 <li class="text-gray-600">FDA Adverse Event Reporting System (FAERS)</li>
+                                 <li class="text-gray-600">DailyMed</li>
+                                 <li class="text-gray-600">MIMS</li>
+                                <li class="text-gray-600">UniProt</li>
+                                <li class="text-gray-600">GenBank</li>
+                                <li class="text-gray-600">KEGG</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-700 mb-2">Severity Levels</h3>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li class="text-gray-600">Major</li>
+                                <li class="text-gray-600">Moderate</li>
+                                <li class="text-gray-600">Minor</li>
+                                 <li class="text-gray-600">None</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-700 mb-2">Analysis Types</h3>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li class="text-gray-600">Pharmacokinetic</li>
+                                <li class="text-gray-600">Pharmacodynamic</li>
+                                <li class="text-gray-600">Clinical Impact</li>
+                                <li class="text-gray-600">Sequence Analysis</li>
+                                 <li class="text-gray-600">Pathway Analysis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('checkInteraction').addEventListener('click', function() {
+            const medication1 = document.getElementById('medication1').value;
+            const medication2 = document.getElementById('medication2').value;
+            const resultsDiv = document.getElementById('results');
+
+            if (medication1 && medication2) {
+                resultsDiv.textContent = `Checking interaction between ${medication1} and ${medication2}... (Simulated)`;
+                // Simulate an API call with a timeout
+                setTimeout(function() {
+                    const interactionResult = simulateInteraction(medication1, medication2);
+                    resultsDiv.textContent = interactionResult;
+                }, 1500); // Simulate a 1.5 second delay
+            } else {
+                resultsDiv.textContent = 'Please enter both medications.';
+            }
+        });
+
+        function simulateInteraction(med1, med2) {
+            // In a real application, you would make an API call here.
+            // This is a simplified simulation for demonstration purposes.
+            const interactions = {
+                "aspirin-warfarin": "Major interaction: Increased risk of bleeding.",
+                "ibuprofen-lisinopril": "Moderate interaction: Increased risk of kidney damage.",
+                "amoxicillin-clarithromycin": "Minor interaction: May increase stomach upset.",
+                "metformin-atorvastatin": "None",
+                 "losartan-ibuprofen": "Moderate interaction: Increased risk of kidney problems.",
+                "citalopram-tramadol": "Moderate interaction: Increased risk of serotonin syndrome.",
+                "gabapentin-morphine": "Moderate interaction: Increased risk of respiratory depression.",
+                "prednisone-insulin": "Moderate interaction: Prednisone can increase blood sugar levels, affecting insulin dosage.",
+                "digoxin-verapamil": "Moderate interaction: Verapamil can increase digoxin levels, leading to toxicity.",
+                "lithium-nsaids": "Moderate interaction: NSAIDs can increase lithium levels, increasing the risk of toxicity.",
+                "theophylline-caffeine": "Moderate interaction: Increased risk of CNS stimulation.",
+                "phenytoin-carbamazepine": "Variable: Can increase or decrease levels of either drug.",
+                "isoniazid-rifampin": "Moderate interaction: Increased risk of liver damage.",
+                "enalapril-spironolactone": "Moderate interaction: Increased risk of hyperkalemia.",
+                "metoprolol-clonidine": "Moderate interaction: Risk of excessive bradycardia.",
+                "nifedipine-ranitidine": "Minor interaction: Ranitidine may increase nifedipine levels slightly.",
+                "pioglitazone-gemfibrozil": "Moderate interaction: Increased risk of hypoglycemia and edema.",
+                "sildenafil-nitrates": "Contraindicated: Severe hypotension and cardiovascular events.",
+                "tamsulosin-warfarin": "Moderate interaction: Increased risk of bleeding.",
+                "venlafaxine-MAOIs": "Contraindicated: Risk of serotonin syndrome.",
+                "zolpidem-alcohol": "Major interaction: Increased risk of CNS depression and respiratory depression.",
+                "atorvastatin-clarithromycin": "Moderate interaction: Increased risk of myopathy.",
+                "benazepril-hydrochlorothiazide": "Additive effect: Increased risk of hypotension.",
+                "carvedilol-fluoxetine": "Moderate interaction: Increased risk of bradycardia.",
+                "doxycycline-antacids": "Moderate interaction: Antacids can decrease doxycycline absorption.",
+                "erythromycin-simvastatin": "Moderate interaction: Increased risk of myopathy.",
+                "furosemide-digoxin": "Moderate interaction: Increased risk of digoxin toxicity if potassium is depleted.",
+                "haloperidol-lithium": "Moderate interaction: Increased risk of neurotoxicity.",
+                "irbesartan-potassium supplements": "Moderate interaction: Increased risk of hyperkalemia.",
+                "ketoconazole-warfarin": "Moderate interaction: Increased risk of bleeding.",
+                "lamotrigine-valproate": "Moderate interaction: Increased risk of skin rash.",
+                "metronidazole-alcohol": "Disulfiram-like reaction: Nausea, vomiting, headache.",
+                "naltrexone-opioids": "Contraindicated: Opioid withdrawal.",
+                "olanzapine-benzodiazepines": "Moderate interaction: Increased risk of sedation and respiratory depression.",
+                "paroxetine-tamoxifen": "Moderate interaction: Paroxetine may reduce the effectiveness of tamoxifen.",
+                "quinidine-digoxin": "Moderate interaction: Quinidine increases digoxin levels.",
+                "rosiglitazone-insulin": "Moderate interaction: Increased risk of hypoglycemia.",
+                "spironolactone-trimethoprim": "Moderate interaction: Increased risk of hyperkalemia.",
+                "terazosin-sildenafil": "Moderate interaction: Increased risk of hypotension.",
+                "uricosurics-probenecid": "Therapeutic duplication: May not provide additional benefit.",
+                "verapamil-beta-blockers": "Moderate interaction: Increased risk of bradycardia and heart block.",
+                "warfarin-aspirin": "Major interaction: Increased risk of bleeding.",
+                "xylometazoline-MAOIs": "Moderate interaction: Risk of hypertensive crisis.",
+                "yohimbine-antidepressants": "Moderate interaction: May cause anxiety and increased blood pressure.",
+                "zafirlukast-warfarin": "Moderate interaction: Zafirlukast may increase warfarin levels.",
+                "alendronate-calcium supplements": "Moderate interaction: Calcium can decrease alendronate absorption.",
+                "bromocriptine-metoclopramide": "Moderate interaction: Metoclopramide can decrease the effectiveness of bromocriptine.",
+                "cyclosporine-ketoconazole": "Moderate interaction: Ketoconazole can increase cyclosporine levels.",
+                "diazepam-cimetidine": "Moderate interaction: Cimetidine can increase diazepam levels.",
+                "epinephrine-beta-blockers": "Moderate interaction: Beta-blockers can block the bronchodilating effects of epinephrine.",
+                "fluconazole-phenytoin": "Moderate interaction: Fluconazole can increase phenytoin levels.",
+                "gentamicin-vancomycin": "Additive nephrotoxicity: Increased risk of kidney damage.",
+                "hydralazine-nsaids": "Moderate interaction: NSAIDs can decrease the antihypertensive effect of hydralazine.",
+                "isoniazid-phenytoin": "Moderate interaction: Isoniazid can increase phenytoin levels.",
+                "ketorolac-anticoagulants": "Increased bleeding risk: Increased risk of bleeding.",
+                "levodopa-antipsychotics": "Antipsychotics can block dopamine receptors, reducing levodopa's effectiveness.",
+                "meperidine-MAOIs": "Risk of serotonin syndrome: Risk of serotonin syndrome.",
+                "nifedipine-digoxin": "Moderate interaction: Nifedipine can increase digoxin levels.",
+                "omeprazole-diazepam": "Moderate interaction: Omeprazole can increase diazepam levels.",
+                "probenecid-penicillins": "Therapeutic benefit: Probenecid can increase penicillin levels.",
+                "quinolone antibiotics-theophylline": "Increased theophylline levels: Increased risk of theophylline toxicity.",
+                "rifampin-oral contraceptives": "Decreased contraceptive effectiveness: Decreased contraceptive effectiveness.",
+                "sulfonamides-sulfonylureas": "Increased hypoglycemic effect: Increased risk of hypoglycemia.",
+                "tetracyclines-dairy products": "Decreased antibiotic absorption: Decreased antibiotic absorption.",
+                "valproic acid-phenobarbital": "Increased phenobarbital levels: Increased risk of sedation.",
+                "zidovudine-probenecid": "Increased zidovudine levels: Increased risk of zidovudine toxicity."
+            };
+
+            const key1 = `${med1.toLowerCase()}-${med2.toLowerCase()}`;
+            const key2 = `${med2.toLowerCase()}-${med1.toLowerCase()}`;
+
+             if (interactions[key1]) {
+                return interactions[key1];
+            } else if (interactions[key2]){
+                 return interactions[key2];
+            }
+            else {
+                return `No significant interaction found between ${med1} and ${med2}.`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all the tool links
+            const toolLinks = document.querySelectorAll('#tool-list a');
+            const toolContentAreas = document.querySelectorAll('.tool-content');
+
+            // Add click event listeners to each tool link
+            toolLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent the default anchor behavior
+
+                    // Hide all tool content areas
+                    toolContentAreas.forEach(area => {
+                        area.classList.remove('active');
+                    });
+
+                    // Get the target tool ID from the data-tool attribute
+                    const targetToolId = this.getAttribute('data-tool');
+                    // Show the selected tool content area
+                    document.getElementById(targetToolId).classList.add('active');
+
+                    // Remove active class from all links
+                    toolLinks.forEach(link => link.classList.remove('active'));
+                    // Add active class to the clicked link
+                    this.classList.add('active');
+                });
+            });
+
+            // Make the first tool active by default
+            if (toolLinks.length > 0) {
+                toolLinks[0].click(); // Simulate a click on the first link
+            }
+        });
+
+        function runBlast() {
+            const sequence = document.getElementById('blast-sequence').value;
+            const resultsDiv = document.getElementById('blast-results');
+            resultsDiv.textContent = "Running BLAST... (Simulated)";
+
+            setTimeout(function() {
+                const blastResult = simulateBlast(sequence);
+                resultsDiv.textContent = blastResult;
+            }, 2000);
+        }
+
+        function simulateBlast(seq) {
+            if (!seq) return "Please enter a sequence.";
+            if (seq.length < 10) return "Sequence is too short for a meaningful BLAST.";
+            const hits = Math.floor(Math.random() * 5) + 1;
+            return `BLAST found ${hits} significant hits. (Simulated)`;
+        }
+
+        function getKeggInfo() {
+            const keggId = document.getElementById('kegg-id').value;
+            const resultsDiv = document.getElementById('kegg-results');
+            resultsDiv.textContent = "Fetching KEGG information... (Simulated)";
+
+             setTimeout(function() {
+                const keggResult = simulateKegg(keggId);
+                resultsDiv.textContent = keggResult;
+            }, 1500);
+        }
+
+        function simulateKegg(id) {
+            if (!id) return "Please enter a KEGG ID.";
+            if (!id.startsWith('hsa')) return "Invalid KEGG ID.  Example: hsa00010";
+            return `KEGG Pathway: Glycolysis/Gluconeogenesis (hsa00010) - Simulated Data`;
+        }
+
+        function designPrimers() {
+            const sequence = document.getElementById('primer-sequence').value;
+            const targetRegion = document.getElementById('primer-target-region').value;
+            const tm = document.getElementById('primer-tm').value;
+            const resultsDiv = document.getElementById('primer-results');
+            resultsDiv.textContent = "Designing primers... (Simulated)";
+
+            setTimeout(function() {
+                const primerResult = simulatePrimerDesign(sequence, targetRegion, tm);
+                resultsDiv.textContent = primerResult;
+            }, 2000);
+        }
+
+        function simulatePrimerDesign(seq, region, tm) {
+             if (!seq || !region || !tm) return "Please enter sequence, region, and Tm.";
+             const start = parseInt(region.split('-')[0]);
+             const end = parseInt(region.split('-')[1]);
+             if (isNaN(start) || isNaN(end) || start >= end) return "Invalid target region.";
+             if (isNaN(parseFloat(tm))) return "Invalid melting temperature.";
+
+            const forwardPrimer = seq.substring(start - 1, start + 19);
+            const reversePrimer = seq.substring(end - 20, end);
+            return `Forward Primer: ${forwardPrimer}, Reverse Primer: ${reversePrimer} (Tm: ${tm}C) - Simulated`;
+        }
+
+        function transcribeSequence() {
+            const dnaSequence = document.getElementById('transcription-dna').value;
+            const resultsDiv = document.getElementById('transcription-results');
+            resultsDiv.textContent = "Transcribing sequence... (Simulated)";
+            setTimeout(function() {
+                const rnaSequence = simulateTranscription(dnaSequence);
+                resultsDiv.textContent = rnaSequence;
+            }, 1000);
+        }
+
+        function simulateTranscription(dna) {
+            if (!dna) return "Please enter a DNA sequence.";
+            return dna.replace(/T/g, 'U');
+        }
+
+        function translateSequence() {
+            const rnaSequence = document.getElementById('translation-rna').value;
+            const resultsDiv = document.getElementById('translation-results');
+            resultsDiv.textContent = "Translating sequence... (Simulated)";
+            setTimeout(function() {
+                const proteinSequence = simulateTranslation(rnaSequence);
+                resultsDiv.textContent = proteinSequence;
+            }, 1500);
+        }
+
+        function simulateTranslation(rna) {
+            if (!rna) return "Please enter an RNA sequence.";
+             const codonTable = {
+                'UUU': 'F', 'CUC': 'L', 'SER': 'S', 'UAU': 'Y', 'UCU': 'S',
+                'UUC': 'F', 'CUU': 'L', 'UCC': 'S', 'UAC': 'Y', 'UCC': 'S',
+                'UUA': 'L', 'CUA': 'L', 'UCA': 'S', 'UAA': '*', 'UCA': 'S',
+                'UUG': 'L', 'CUG': 'L', 'UCG': 'S', 'UAG': '*', 'UCG': 'S',
+                'CUU': 'L', 'CCU': 'P', 'CAU': 'H', 'CGU': 'R',
+                'CUC': 'L', 'CCC': 'P', 'CAC': 'H', 'CGC': 'R',
+                'CUA': 'L', 'CCA': 'P', 'CAA': 'Q', 'CGA': 'R',
+                'CUG': 'L', 'CCG': 'P', 'CAG': 'Q', 'CGG': 'R',
+                'AUU': 'I', 'ACU': 'T', 'AAU': 'N', 'AGU': 'S',
+                'AUC': 'I', 'ACC': 'T', 'AAC': 'N', 'AGC': 'S',
+                'AUA': 'I', 'ACA': 'T', 'AAA': 'K', 'AGA': 'R',
+                'AUG': 'M', 'ACG': 'T', 'AAG': 'K', 'AGG': 'R',
+                'GUU': 'V', 'GCU': 'A', 'GAU': 'D', 'GGU': 'G',
+                'GUC': 'V', 'GCC': 'A', 'GAC': 'D', 'GGC': 'G',
+                'GUA': 'V', 'GCA': 'A', 'GAA': 'E', 'GGA': 'G',
+                'GUG': 'V', 'GCG': 'A', 'GAG': 'E', 'GGG': 'G',
+                };
+            let protein = '';
+            for (let i = 0; i < rna.length; i += 3) {
+                const codon = rna.substring(i, i + 3).toUpperCase();
+                if (codonTable[codon]) {
+                    protein += codonTable[codon];
+                } else {
+                    protein += '?';
+                }
+            }
+            return protein;
+        }
+
+        function getComplement() {
+            const sequence = document.getElementById('complement-sequence').value;
+            const resultsDiv = document.getElementById('complement-results');
+            resultsDiv.textContent = "Calculating complement... (Simulated)";
+
+            setTimeout(function() {
+                const complement = simulateComplement(sequence);
+                resultsDiv.textContent = complement;
+            }, 1000);
+        }
+
+        function simulateComplement(seq) {
+            if (!seq) return "Please enter a DNA sequence.";
+            const complement = seq.toUpperCase().split('').map(base => {
+                switch (base) {
+                    case 'A': return 'T';
+                    case 'T': return 'A';
+                    case 'C': return 'G';
+                    case 'G': return 'C';
+                    default: return '?';
+                }
+            }).join('');
+            return complement;
+        }
+
+        function getUniprotInfo() {
+            const uniprotId = document.getElementById('uniprot-id').value;
+            const resultsDiv = document.getElementById('uniprot-results');
+            resultsDiv.textContent = "Fetching UniProt information... (Simulated)";
+
+            setTimeout(function() {
+                const uniprotData = simulateUniprot(uniprotId);
+                resultsDiv.textContent = uniprotData;
+            }, 1500);
+        }
+
+        function simulateUniprot(id) {
+            if (!id) return "Please enter a UniProt ID.";
+            if (id === 'P04637') {
+                return `UniProt ID: P04637, Protein Name: Tumor protein p53, Species: Homo sapiens - Simulated Data`;
+            }
+            return `UniProt ID: ${id} - Information not found (Simulated)`;
+        }
+
+        function getChemblInfo() {
+            const chemblId = document.getElementById('chembl-id').value;
+            const resultsDiv = document.getElementById('chembl-results');
+            resultsDiv.textContent = "Fetching ChEMBL information... (Simulated)";
+
+            setTimeout(function() {
+                const chemblData = simulateChembl(chemblId);
+                resultsDiv.textContent = chemblData;
+            }, 1500);
+        }
+
+        function simulateChembl(id) {
+            if (!id) return "Please enter a ChEMBL ID.";
+            if (id === 'CHEMBL12') {
+                return `ChEMBL ID: CHEMBL12, Compound Name: Aspirin, Molecular Weight: 180.16 g/mol - Simulated Data`;
+            }
+            return `ChEMBL ID: ${id} - Information not found (Simulated)`;
+        }
+
+    </script>
+</body>
+</html>
