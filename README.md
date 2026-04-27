@@ -1,5 +1,50 @@
-🧬 Bio-Toolkit: Integrated Full-Stack Bioinformatics & Clinical Intelligence Suite📖 OverviewThe Bio-Toolkit is a high-performance web application designed to streamline common bioinformatics workflows and clinical decision-support tasks. By bridging the gap between raw genomic data and clinical application, this suite provides researchers and students with an accessible interface for sequence manipulation, pathway analysis, and drug-interaction screening.This project was developed to demonstrate a mastery of Bioinformatics Engineering principles, specifically focusing on the "Central Dogma" of molecular biology and the pharmacokinetic complexities of multi-drug therapy.🛠️ Core Modules & Scientific Logic1. 💊 Clinical Informatics & DDI AnalysisThe Medication Interaction Tool utilizes a normalized lookup algorithm to cross-reference drug pairs against a database of known adverse events.Interaction Severity: Categorizes results into Major (Contraindicated), Moderate (Clinical Monitoring Required), and Minor (Interaction possible).Database Simulation: Includes mappings for common clinical drugs like Warfarin, Metformin, and Insulin.2. 🧬 Genomic Sequence EngineeringTranscription Engine: Converts DNA antisense strands to mRNA by substituting Thymine ($T$) with Uracil ($U$).Translation Engine: A high-fidelity implementation of the Standard Genetic Code.Start Codon Recognition: Searches for the AUG Methionine start site.Stop Codon Termination: Automatically truncates the protein sequence upon encountering UAA, UAG, or UGA.PCR Primer Design: A mathematical approach to designing oligonucleotide sequences. Users define a target region and a desired Melting Temperature ($T_m$), allowing for simulated PCR optimization.3. 🧪 Biological Database IntegrationThe suite provides simulated API hooks for the most influential repositories in the field:UniProt: Protein-level functional annotations and species-specific data.KEGG: Mapping genomic data to metabolic and signaling pathways.ChEMBL: Chemical bioactivity data, molecular weights, and ATC classifications.BLAST: Simulation of the Basic Local Alignment Search Tool to identify sequence homology.💻 Technical Stack & ImplementationBackend: RESTful API (Flask)The backend is architected for scalability and clear separation of concerns.CORS Management: Implemented flask-cors to enable secure, asynchronous requests from the frontend.Endpoint Design: Each biological process (e.g., /api/translation, /api/check-interaction) is decoupled to allow for independent modular updates.Input Normalization: Robust string handling to ensure genetic sequences (A, T, C, G/U) and drug names are processed case-insensitively.Frontend: Modern UI (JavaScript/Tailwind)SPA Architecture: A single-page design using dynamic DOM manipulation for a seamless user experience without page reloads.Responsive Framework: Built with Tailwind CSS, ensuring the dashboard is functional on tablets, laptops, and mobile devices.Interactivity: Utilizes the JavaScript Fetch API for real-time communication with the Flask server.🚀 Installation and DeploymentPrerequisitesPython 3.8 or higherPip (Python Package Manager)Step 1: Clone the RepositoryBashgit clone https://github.com/yourusername/bio-toolkit.git
-cd bio-toolkit
-Step 2: Install DependenciesBashpip install flask flask-cors
-Step 3: Run the ApplicationStart the Flask Server:Bashpython app.py
-Access the Interface:Navigate to the project folder and open index.html in your preferred web browser (Chrome or Firefox recommended).🔬 Scientific MethodologyThis toolkit follows the standard procedures used in bioinformatics research:Sequence Logic: Standard 5' to 3' orientation.Pharmacology: Interactions modeled after DrugBank and PharmGKB severity scales.Systems Biology: Pathway IDs consistent with the Kyoto Encyclopedia of Genes and Genomes.📝 Author[Your Name]Final Year B.E. Bioinformatics Student⚖️ DisclaimerThis tool is intended for educational and simulation purposes in the field of bioinformatics. The drug interaction data, while based on clinical facts, should not be used as a substitute for professional medical advice or a certified clinical decision support system.
+# 🧬 Bio-Toolkit: Integrated Full-Stack Bioinformatics Suite
+
+![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-1.1.2+-000000?style=for-the-badge&logo=flask&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3.0+-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+
+## 📖 Project Overview
+The **Bio-Toolkit** is a high-performance web application designed to streamline common bioinformatics workflows and clinical decision-support tasks. Developed as a final-year project for **B.E. Bioinformatics Engineering**, it bridges the gap between raw genomic data and clinical application.
+
+---
+
+## 🛠️ Core Modules
+
+### 1. 💊 Clinical Informatics
+* **Drug-Drug Interaction (DDI) Checker:** A normalized lookup algorithm to cross-reference drug pairs.
+* **Severity Classification:** Categorizes results into `Major`, `Moderate`, and `Minor` risks.
+* **Database Integration:** Simulated mappings for **DrugBank** and **ChEMBL** standards.
+
+### 2. 🧬 Genomic Sequence Engineering
+* **Transcription Engine:** Automated DNA $\rightarrow$ RNA conversion.
+* **Translation Engine:** A high-fidelity implementation of the **Standard Genetic Code** featuring:
+    * Start codon (`AUG`) recognition.
+    * Stop codon (`UAA`, `UAG`, `UGA`) termination logic.
+* **PCR Primer Design:** Mathematical approach to designing oligonucleotide sequences based on Target Region and Melting Temperature ($T_m$).
+
+### 3. 🧪 Systems Biology & Databases
+* **UniProt:** Protein-level functional annotations and species data.
+* **KEGG:** Mapping genomic data to metabolic and signaling pathways.
+* **BLAST:** Sequence homology simulation for genomic research.
+
+---
+
+## 💻 Technical Stack
+
+### **Backend (Python/Flask)**
+* **RESTful API:** Decoupled endpoints for independent modular updates.
+* **CORS Management:** Configured via `flask-cors` for secure frontend communication.
+* **Bio-Algorithms:** Custom implementation of transcription/translation logic.
+
+### **Frontend (JS/Tailwind CSS)**
+* **SPA Architecture:** Single-page design for a seamless, "no-refresh" user experience.
+* **Responsive UI:** Professional "Scientific Dashboard" aesthetic optimized for all screen sizes.
+
+---
+
+## 🚀 Installation & Setup
+
+### 1. Install Dependencies
+```bash
+pip install flask flask-cors
